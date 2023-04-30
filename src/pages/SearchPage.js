@@ -11,16 +11,12 @@ import {
   Search as SearchIcon,
 } from '@mui/icons-material';
 import useGoogleSearch from '../useGoogleSearch';
-import Response from '../response';
 import '../css/SearchPage.css';
 
 const SearchPage = () => {
-  const [{ term }, dispatch] = useStateValue();
+  const [{ term }] = useStateValue();
   // Live API Call
   const { data } = useGoogleSearch(term);
-
-  // Mock API Call
-  // const data = Response;
 
   return (
     <div className='searchPage'>
@@ -80,12 +76,12 @@ const SearchPage = () => {
           </p>
           {data?.items.map((item) => (
             <div className='searchPage__result'>
-              <a href={item.displayLink} target='_blank'>
+              <a href={item.displayLink} target='_blank' rel='noreferrer'>
                 {item.pagemap?.cse_image?.length > 0 &&
                   item.pagemap?.cse_image[0].src && (
                     <img
                       src={item.pagemap?.cse_image[0].src}
-                      alt='result image'
+                      alt='result'
                       className='searchPage__resultImage'
                     />
                   )}
@@ -95,6 +91,7 @@ const SearchPage = () => {
                 href={item.link}
                 className='searchPage__resultTitle'
                 target='_blank'
+                rel='noreferrer'
               >
                 <h3>{item.title}</h3>
               </a>
